@@ -221,9 +221,25 @@ app.controller("expCtrl", ["$scope", "$rootScope", '$timeout',
             if ($scope.index >= $scope.activeState.length - 1) {
                 // move to end of expeirment
                 $timeout.cancel(stopped);
-                $rootScope.user['start'] = $scope.start;
-                $rootScope.user['middle'] = $scope.middle;
-                $rootScope.user['end'] = $scope.end;
+                $rootScope.user['startUp'] =$scope.start.up;
+                $rootScope.user['startDown'] =$scope.start.down;
+                $rootScope.user['startLeft'] =$scope.start.left;
+                $rootScope.user['startRight'] =$scope.start.right;
+                $rootScope.user['startScore'] =$scope.start.right+$scope.start.left+$scope.start.up+$scope.start.down*3;
+
+                $rootScope.user['middleUp'] =$scope.middle.up;
+                $rootScope.user['middleDown'] =$scope.middle.down;
+                $rootScope.user['middleLeft'] =$scope.middle.left;
+                $rootScope.user['middleRight'] =$scope.middle.right;
+                $rootScope.user['middleScore'] =$scope.middle.right+$scope.middle.left+$scope.middle.up+$scope.middle.down*3;
+
+
+                $rootScope.user['endUp'] =$scope.end.up;
+                $rootScope.user['endDown'] =$scope.end.down;
+                $rootScope.user['endLeft'] =$scope.end.left;
+                $rootScope.user['endRight'] =$scope.end.right;
+                $rootScope.user['endScore'] =$scope.end.right+$scope.end.left+$scope.end.up+$scope.end.down*3;
+
                 $scope.changeRoute('#/end');
 
             }
