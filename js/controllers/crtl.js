@@ -50,8 +50,8 @@ app.controller("endCtrl", ["$scope", "$rootScope", "$http",
 
             $http({
                 method: 'POST',
-                url: 'http://q2a.ise.bgu.ac.il:5000/json',
                 //url: 'http://localhost:5000/json',
+                url: 'http://q2a.ise.bgu.ac.il:5000/json',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 data: $.param($rootScope.user)
             }).success(function (data) {
