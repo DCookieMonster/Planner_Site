@@ -111,6 +111,13 @@ app.controller("trainCtrl", ["$scope", "$rootScope", '$timeout',
                 if (parseInt(robot[i].x) == parseInt(x) && parseInt(robot[i].y) == parseInt(y)) {
                     return true;
                 }
+
+            }
+            for (var i = 0; i < tiles.length; i++) {
+                if (parseInt(tiles[i][1]) == parseInt(x) && parseInt(tiles[i][2]) == parseInt(y) && tiles[i][0]!="white" ) {
+                    return true;
+                }
+
             }
             return false;
         };
