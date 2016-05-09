@@ -56,8 +56,10 @@ app.controller("endCtrl", ["$scope", "$rootScope", "$http",
                 data: $.param($rootScope.user)
             }).success(function (data) {
                 console.log("posted successfully");
+
             }).error(function (data) {
                 console.error["error in posting"];
+
             })
         };
         $scope.init();
@@ -123,9 +125,10 @@ app.controller("quizCtrl", ["$scope", "$rootScope",
         $scope.q2 = "";
         $scope.q3 = "";
         $scope.q4 = "";
+        $scope.q5 = "";
         //$scope.userInfo=$rootScope.userInfo;
         $scope.continue = function () {
-            if ($scope.q1 == "ans1" && $scope.q2 == "ans2" && $scope.q3 == "ans3" && $scope.q4 == "ans4") {
+            if ($scope.q1 == "ans3" && $scope.q2 == "ans1" && $scope.q3 == "ans4" && $scope.q4 == "ans1"&& $scope.q5 == "ans2") {
                 $rootScope.user["DurationQuiz"] = new Date - start;
                 $rootScope.user["numberOftimesInQuiz"] = $rootScope.numberOftimeInQuiz;
                 $scope.changeRoute('#/train');
