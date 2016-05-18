@@ -262,3 +262,104 @@ app.controller("expCtrl", ["$scope", "$rootScope", '$timeout',
             }
         }
     }]);
+
+
+app.controller("calCtrl", ["$scope", "$rootScope", '$timeout',
+    function ($scope, $rootScope, $timeout) {
+
+        //$scope.userInfo=$rootScope.userInfo;
+        $scope.calibration = {
+            up: 0,
+            down: 0,
+            right: 0,
+            left: 0
+        };
+
+        $scope.counter = 300;
+
+
+
+        $scope.init = function () {
+
+            $scope.countdown();
+        };
+
+
+        $scope.countdown = function () {
+            stopped = $timeout(function () {
+                //console.log($scope.counter);
+                if ($scope.counter === 0) {
+                    //TODO: Alert
+                    alert("Time is Up");
+                    $timeout.cancel(stopped);
+                    $scope.continue();
+                }
+                $scope.counter--;
+                $scope.countdown();
+            }, 1000);
+        };
+
+        $scope.init();
+
+        var start = new Date();
+        $scope.changeRoute = function (url, forceReload) {
+            $scope = $scope || angular.element(document).scope();
+            if (forceReload || $scope.$$phase) { // that's right TWO dollar signs: $$phase
+                window.location = url;
+            } else {
+                $location.path(url);
+                $scope.$apply();
+            }
+        };
+
+        $scope.continue = function () {
+                // move to end of expeirment
+                $timeout.cancel(stopped);
+                $rootScope.user['calibrationUp'] =$scope.calibration.up;
+                $rootScope.user['calibrationDown'] =$scope.calibration.down;
+                $rootScope.user['calibrationLeft'] =$scope.calibration.left;
+                $rootScope.user['calibrationRight'] =$scope.calibration.right;
+                $rootScope.user['calibrationScore'] =$scope.calibration.right+$scope.calibration.left+$scope.calibration.up+$scope.calibration.down*3;
+
+
+                $scope.changeRoute('#/calibrationResult');
+
+
+
+        }
+    }]);
+
+
+app.controller("calRasCtrl", ["$scope", "$rootScope", '$timeout',
+    function ($scope, $rootScope, $timeout) {
+
+        //$scope.userInfo=$rootScope.userInfo;
+        $scope.calibration = {
+            up:    $rootScope.user['calibrationUp'],
+            down: $rootScope.user['calibrationDown'],
+            right:   $rootScope.user['calibrationRight'],
+            left: $rootScope.user['calibrationLeft']
+        };
+
+        $scope.estimated_cost=  $rootScope.user['calibrationScore'];
+
+
+        $scope.changeRoute = function (url, forceReload) {
+            $scope = $scope || angular.element(document).scope();
+            if (forceReload || $scope.$$phase) { // that's right TWO dollar signs: $$phase
+                window.location = url;
+            } else {
+                $location.path(url);
+                $scope.$apply();
+            }
+        };
+
+        $scope.continue = function () {
+
+
+            $scope.changeRoute('#/exp');
+
+
+
+        }
+    }]);

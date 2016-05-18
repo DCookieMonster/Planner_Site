@@ -368,7 +368,7 @@ app.controller("trainCtrl", ["$scope", "$rootScope", '$timeout',
             $rootScope.user["GridSize"] = GridSize;
 
             $rootScope.UserStates = states;
-            $scope.changeRoute('#/exp');
+            $scope.changeRoute('#/calibration');
         }
 
     }]);

@@ -28,7 +28,15 @@ app.config(['$routeProvider', '$locationProvider',
         }).when('/consent', {
             templateUrl: 'parcitals/consent.html',
             controller: 'consentCtrl'
-        }).otherwise({
+        })
+            .when('/calibration', {
+                templateUrl: 'parcitals/calibration.html',
+                controller: 'calCtrl'
+            }).when('/calibrationResult', {
+                templateUrl: 'parcitals/calibrationResults.html',
+                controller: 'calRasCtrl'
+            })
+            .otherwise({
             redirectTo: '/'
 
         });
