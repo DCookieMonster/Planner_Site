@@ -228,20 +228,20 @@ app.controller("expCtrl", ["$scope", "$rootScope", '$timeout',
                 $rootScope.user['startDown'] =$scope.start.down;
                 $rootScope.user['startLeft'] =$scope.start.left;
                 $rootScope.user['startRight'] =$scope.start.right;
-                $rootScope.user['startScore'] =$scope.start.right+$scope.start.left+$scope.start.up+$scope.start.down*3;
+                $rootScope.user['startScore'] =$scope.start.right+$scope.start.left+$scope.start.up+$scope.start.down;
 
                 $rootScope.user['middleUp'] =$scope.middle.up;
                 $rootScope.user['middleDown'] =$scope.middle.down;
                 $rootScope.user['middleLeft'] =$scope.middle.left;
                 $rootScope.user['middleRight'] =$scope.middle.right;
-                $rootScope.user['middleScore'] =$scope.middle.right+$scope.middle.left+$scope.middle.up+$scope.middle.down*3;
+                $rootScope.user['middleScore'] =$scope.middle.right+$scope.middle.left+$scope.middle.up+$scope.middle.down;
 
 
                 $rootScope.user['endUp'] =$scope.end.up;
                 $rootScope.user['endDown'] =$scope.end.down;
                 $rootScope.user['endLeft'] =$scope.end.left;
                 $rootScope.user['endRight'] =$scope.end.right;
-                $rootScope.user['endScore'] =$scope.end.right+$scope.end.left+$scope.end.up+$scope.end.down*3;
+                $rootScope.user['endScore'] =$scope.end.right+$scope.end.left+$scope.end.up+$scope.end.down;
 
                 $scope.changeRoute('#/end');
 

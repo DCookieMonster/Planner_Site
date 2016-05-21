@@ -143,7 +143,7 @@ app.controller("trainCtrl", ["$scope", "$rootScope", '$timeout',
                     return;
                 }
                 robot[activeRobot].y += height_mod;
-                $scope.score += 3;
+                $scope.score += 1;
                 $scope.userMoves.push("Down")
 
 
