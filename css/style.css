@@ -1,12 +1,20 @@
 p {
     /*font-size: 0.75rem;*/
-    font-family: "Roboto", Arial, sans-serif;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     color: #555;
     line-height: 1.1;
     letter-spacing: 0.8px;
     font-weight: 300;
     margin-top: 15px;
 
+}
+li{
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #555;
+    line-height: 1.1;
+    letter-spacing: 0.8px;
+    font-weight: 300;
+    margin-top: 15px;
 }
 
 h1 {
@@ -51,7 +59,7 @@ h5 {
 
 label {
     /*font-size: 1.75rem;*/
-    font-family: "Roboto", Arial, sans-serif;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     color: #555;
     line-height: 1.1;
     letter-spacing: 0.8px;

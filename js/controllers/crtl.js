@@ -28,7 +28,6 @@ app.controller("demoCtrl", ["$scope", "$rootScope",
 
     }]);
 
-
 app.controller("endCtrl", ["$scope", "$rootScope", "$http",
     function ($scope, $rootScope, $http) {
         $scope.randString = function (x) {
@@ -90,7 +89,6 @@ app.controller("insCtrl", ["$scope", "$rootScope",
         }
     }]);
 
-
 app.controller("consentCtrl", ["$scope", "$rootScope",
     function ($scope, $rootScope) {
         $scope.changeRoute = function (url, forceReload) {
@@ -128,7 +126,7 @@ app.controller("quizCtrl", ["$scope", "$rootScope",
         $scope.q5 = "";
         //$scope.userInfo=$rootScope.userInfo;
         $scope.continue = function () {
-            if ($scope.q1 == "ans3" && $scope.q2 == "ans1" && $scope.q3 == "ans4" && $scope.q4 == "ans1"&& $scope.q5 == "ans2") {
+            if ($scope.q1 == "ans1" && $scope.q2 == "ans1" && $scope.q3 == "ans4" && $scope.q4 == "ans1"&& $scope.q5 == "ans2") {
                 $rootScope.user["DurationQuiz"] = new Date - start;
                 $rootScope.user["numberOftimesInQuiz"] = $rootScope.numberOftimeInQuiz;
                 $scope.changeRoute('#/train');
@@ -143,7 +141,6 @@ app.controller("quizCtrl", ["$scope", "$rootScope",
 
         }
     }]);
-
 
 app.controller("expCtrl", ["$scope", "$rootScope", '$timeout',
     function ($scope, $rootScope, $timeout) {
@@ -263,7 +260,6 @@ app.controller("expCtrl", ["$scope", "$rootScope", '$timeout',
         }
     }]);
 
-
 app.controller("calCtrl", ["$scope", "$rootScope", '$timeout',
     function ($scope, $rootScope, $timeout) {
 
@@ -328,7 +324,6 @@ app.controller("calCtrl", ["$scope", "$rootScope", '$timeout',
 
         }
     }]);
-
 
 app.controller("calRasCtrl", ["$scope", "$rootScope", '$timeout',
     function ($scope, $rootScope, $timeout) {
