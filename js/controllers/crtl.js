@@ -216,11 +216,24 @@ app.controller("expCtrl", ["$scope", "$rootScope", '$timeout',
                 $scope.$apply();
             }
         };
+        $scope.insertDuration = function(start,end,index){
+            if ($scope.activeState[index]=="startPic"){
+                $rootScope.user['startDuration']=end-start;
+            }
+            if ($scope.activeState[index]=="middlePic"){
+                $rootScope.user['middleDuration']=end-start;
+            }
+            if ($scope.activeState[index]=="endPic"){
+                $rootScope.user['endDuration']=end-start;
+            }
+
+        };
 
         $scope.continue = function () {
             if ($scope.index >= $scope.activeState.length - 1) {
                 // move to end of expeirment
                 $timeout.cancel(stopped);
+
                 $rootScope.user['startUp'] =$scope.start.up;
                 $rootScope.user['startDown'] =$scope.start.down;
                 $rootScope.user['startLeft'] =$scope.start.left;
@@ -250,6 +263,8 @@ app.controller("expCtrl", ["$scope", "$rootScope", '$timeout',
                 $(".pic").hide();
 
                 $("#" + $scope.activeState[$scope.index]).show();
+                $scope.insertDuration(start,new Date, $scope.index-1 );
+                start=new Date();
                 document.body.scrollTop = document.documentElement.scrollTop = 0;
                 $scope.counter = 300;
 
@@ -272,7 +287,6 @@ app.controller("calCtrl", ["$scope", "$rootScope", '$timeout',
         };
 
         $scope.counter = 300;
-
 
 
         $scope.init = function () {
@@ -315,8 +329,8 @@ app.controller("calCtrl", ["$scope", "$rootScope", '$timeout',
                 $rootScope.user['calibrationDown'] =$scope.calibration.down;
                 $rootScope.user['calibrationLeft'] =$scope.calibration.left;
                 $rootScope.user['calibrationRight'] =$scope.calibration.right;
-                $rootScope.user['calibrationScore'] =$scope.calibration.right+$scope.calibration.left+$scope.calibration.up+$scope.calibration.down*3;
-
+                $rootScope.user['calibrationScore'] =$scope.calibration.right+$scope.calibration.left+$scope.calibration.up+$scope.calibration.down;
+                $rootScope.user['calibrationDuration']=new Date()-start;
 
                 $scope.changeRoute('#/calibrationResult');
 
@@ -338,7 +352,7 @@ app.controller("calRasCtrl", ["$scope", "$rootScope", '$timeout',
 
         $scope.estimated_cost=  $rootScope.user['calibrationScore'];
 
-
+        var start=new Date();
         $scope.changeRoute = function (url, forceReload) {
             $scope = $scope || angular.element(document).scope();
             if (forceReload || $scope.$$phase) { // that's right TWO dollar signs: $$phase
@@ -350,6 +364,7 @@ app.controller("calRasCtrl", ["$scope", "$rootScope", '$timeout',
         };
 
         $scope.continue = function () {
+            $rootScope.user['calibrationResultDuration']=new Date-start;
 
 
             $scope.changeRoute('#/exp');
