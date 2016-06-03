@@ -49,8 +49,8 @@ app.controller("endCtrl", ["$scope", "$rootScope", "$http",
 
             $http({
                 method: 'POST',
-                //url: 'http://localhost:5000/json',
-                url: 'http://q2a.ise.bgu.ac.il:5000/json',
+                url: 'http://localhost:5000/json',
+                //url: 'http://q2a.ise.bgu.ac.il:5000/json',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 data: $.param($rootScope.user)
             }).success(function (data) {
@@ -83,7 +83,7 @@ app.controller("insCtrl", ["$scope", "$rootScope",
 
         //$scope.userInfo=$rootScope.userInfo;
         $scope.continue = function () {
-            $rootScope.user["DurationInstruction"] = new Date - start;
+            $rootScope.user["DurationInstruction"] =( new Date - start)/1000;
             $rootScope.user["NumberOfTimeInQuiz"] = $rootScope.numberOftimeInQuiz
             $scope.changeRoute('#/quiz');
         }
@@ -127,7 +127,7 @@ app.controller("quizCtrl", ["$scope", "$rootScope",
         //$scope.userInfo=$rootScope.userInfo;
         $scope.continue = function () {
             if ($scope.q1 == "ans1" && $scope.q2 == "ans1" && $scope.q3 == "ans4" && $scope.q4 == "ans1"&& $scope.q5 == "ans2") {
-                $rootScope.user["DurationQuiz"] = new Date - start;
+                $rootScope.user["DurationQuiz"] = (new Date - start)/1000;
                 $rootScope.user["numberOftimesInQuiz"] = $rootScope.numberOftimeInQuiz;
                 $scope.changeRoute('#/train');
             }
@@ -217,14 +217,15 @@ app.controller("expCtrl", ["$scope", "$rootScope", '$timeout',
             }
         };
         $scope.insertDuration = function(start,end,index){
+            //alert($scope.activeState[index])
             if ($scope.activeState[index]=="startPic"){
-                $rootScope.user['startDuration']=end-start;
+                $rootScope.user['startDuration']=(end-start)/1000;
             }
             if ($scope.activeState[index]=="middlePic"){
-                $rootScope.user['middleDuration']=end-start;
+                $rootScope.user['middleDuration']=(end-start)/1000;
             }
             if ($scope.activeState[index]=="endPic"){
-                $rootScope.user['endDuration']=end-start;
+                $rootScope.user['endDuration']=(end-start)/1000;
             }
 
         };
@@ -233,6 +234,7 @@ app.controller("expCtrl", ["$scope", "$rootScope", '$timeout',
             if ($scope.index >= $scope.activeState.length - 1) {
                 // move to end of expeirment
                 $timeout.cancel(stopped);
+                $scope.insertDuration(start,new Date, $scope.index );
 
                 $rootScope.user['startUp'] =$scope.start.up;
                 $rootScope.user['startDown'] =$scope.start.down;
@@ -330,7 +332,7 @@ app.controller("calCtrl", ["$scope", "$rootScope", '$timeout',
                 $rootScope.user['calibrationLeft'] =$scope.calibration.left;
                 $rootScope.user['calibrationRight'] =$scope.calibration.right;
                 $rootScope.user['calibrationScore'] =$scope.calibration.right+$scope.calibration.left+$scope.calibration.up+$scope.calibration.down;
-                $rootScope.user['calibrationDuration']=new Date()-start;
+                $rootScope.user['calibrationDuration']=(new Date()-start)/1000;
 
                 $scope.changeRoute('#/calibrationResult');
 
@@ -364,7 +366,7 @@ app.controller("calRasCtrl", ["$scope", "$rootScope", '$timeout',
         };
 
         $scope.continue = function () {
-            $rootScope.user['calibrationResultDuration']=new Date-start;
+            $rootScope.user['calibrationResultDuration']=(new Date-start)/1000;
 
 
             $scope.changeRoute('#/exp');

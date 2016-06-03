@@ -361,7 +361,7 @@ app.controller("trainCtrl", ["$scope", "$rootScope", '$timeout',
         $scope.continue = function () {
             $timeout.cancel(stopped);
 
-            $rootScope.user["DurationTraining"] = new Date() - start;
+            $rootScope.user["DurationTraining"] = (new Date - start)/1000;
             $rootScope.user["UserMoves"] = $scope.userMoves;
             $rootScope.user["Score"] = $scope.score;
             $rootScope.user["Win"] = $scope.win;
