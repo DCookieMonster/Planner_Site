@@ -45,19 +45,25 @@ app.controller("endCtrl", ["$scope", "$rootScope", "$http",
 
         $scope.init = function () {
             $rootScope.user["userId"] = $scope.randString(10);
-            $scope.userCode = $rootScope.user["userId"];
 
             $http({
                 method: 'POST',
-                //url: 'http://localhost:5000/json',
-                url: 'http://q2a.ise.bgu.ac.il:5000/json',
+                url: 'http://localhost:5000/json',
+                //url: 'http://q2a.ise.bgu.ac.il:5000/json',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 data: $.param($rootScope.user)
-            }).success(function (data) {
+            }).then(function(response) {
                 console.log("posted successfully");
+                $scope.userCode = $rootScope.user["userId"];
 
-            }).error(function (data) {
+
+            }, function(response) {
                 console.error["error in posting"];
+                console.error[response];
+                $scope.userCode = "There was an error with the communication, please write this at the comment section" +
+                    "on the HIT page" +
+                    ".\nError: "+response.status;
+
 
             })
         };
