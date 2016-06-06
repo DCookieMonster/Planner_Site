@@ -8,6 +8,7 @@ app.controller("trainCtrl", ["$scope", "$rootScope", '$timeout',
 
         var offset = 0;
 
+        $scope.win = false;
 
         $scope.initGoal = function () {
             //var g = document.getElementById("goal");
