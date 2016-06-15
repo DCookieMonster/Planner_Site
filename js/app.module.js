@@ -36,6 +36,13 @@ app.config(['$routeProvider', '$locationProvider',
                 templateUrl: 'parcitals/calibrationResults.html',
                 controller: 'calRasCtrl'
             })
+            .when('/calibration2', {
+                templateUrl: 'parcitals/calibration2.html',
+                controller: 'cal2Ctrl'
+            }).when('/calibrationResult2', {
+                templateUrl: 'parcitals/calibrationResults2.html',
+                controller: 'cal2RasCtrl'
+            })
             .otherwise({
             redirectTo: '/'
 
