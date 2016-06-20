@@ -1,8 +1,114 @@
 /**
- * Created by dor on 23/04/2016.
+ * Created by dor on 20/06/2016.
  */
-app.controller("trainCtrl", ["$scope", "$rootScope", '$timeout',
+
+
+app.controller("expCtrl", ["$scope", "$rootScope", '$timeout',
     function ($scope, $rootScope, $timeout) {
+
+        //$scope.userInfo=$rootScope.userInfo;
+        $scope.start = {
+            up: 0,
+            down: 0,
+            right: 0,
+            left: 0
+        };
+        $scope.middle = {
+            up: 0,
+            down: 0,
+            right: 0,
+            left: 0
+        };
+        $scope.end = {
+            up: 0,
+            down: 0,
+            right: 0,
+            left: 0
+        };
+
+        $scope.counter = 300;
+
+        var all_tiles = {
+            endPic: [['white', 0 * widthTileSize, 0 * heightTileSize], ['white', 1 * widthTileSize, 0 * heightTileSize],
+                ['white', 2 * widthTileSize, 0 * heightTileSize], ['red', 0 * widthTileSize, 1 * heightTileSize], ['white', 1 * widthTileSize, 1 * heightTileSize],
+                ['white', 2 * widthTileSize, 1 * heightTileSize], ['blue', 0 * widthTileSize, 2 * heightTileSize], ['red', 1 * widthTileSize, 2 * heightTileSize],
+                ['blue', 2 * widthTileSize, 2 * heightTileSize], ['red', 0 * widthTileSize, 3 * heightTileSize], ['blue', 1 * widthTileSize, 3 * heightTileSize],
+                ['red', 2 * widthTileSize, 3 * heightTileSize]
+            ],
+            middlePic: [['white', 0 * widthTileSize, 0 * heightTileSize], ['white', 1 * widthTileSize, 0 * heightTileSize],
+                ['white', 2 * widthTileSize, 0 * heightTileSize], ['white', 0 * widthTileSize, 1 * heightTileSize], ['white', 1 * widthTileSize, 1 * heightTileSize],
+                ['white', 2 * widthTileSize, 1 * heightTileSize], ['white', 0 * widthTileSize, 2 * heightTileSize], ['white', 1 * widthTileSize, 2 * heightTileSize],
+                ['blue', 2 * widthTileSize, 2 * heightTileSize], ['red', 0 * widthTileSize, 3 * heightTileSize], ['blue', 1 * widthTileSize, 3 * heightTileSize],
+                ['red', 2 * widthTileSize, 3 * heightTileSize]
+            ],
+            startPic: [['white', 0 * widthTileSize, 0 * heightTileSize], ['white', 1 * widthTileSize, 0 * heightTileSize],
+                ['white', 2 * widthTileSize, 0 * heightTileSize], ['white', 0 * widthTileSize, 1 * heightTileSize], ['white', 1 * widthTileSize, 1 * heightTileSize],
+                ['white', 2 * widthTileSize, 1 * heightTileSize], ['white', 0 * widthTileSize, 2 * heightTileSize], ['white', 1 * widthTileSize, 2 * heightTileSize],
+                ['white', 2 * widthTileSize, 2 * heightTileSize], ['red', 0 * widthTileSize, 3 * heightTileSize], ['blue', 1 * widthTileSize, 3 * heightTileSize],
+                ['white', 2 * widthTileSize, 3 * heightTileSize]
+            ]
+        };
+
+        var all_robots = {
+            startPic: [{x: 1 * widthTileSize, y: 2 * heightTileSize, color: 0}, {
+                x: 0 * widthTileSize,
+                y: 2 * heightTileSize,
+                color: 1
+            }],
+            middlePic: [{x: 2 * widthTileSize, y: 0 * heightTileSize, color: 1}, {
+                x: 2 * widthTileSize,
+                y: 1 * heightTileSize,
+                color: 0
+            }],
+            endPic: [{x: 2 * widthTileSize, y: 1 * heightTileSize, color: 0}, {
+                x: 0 * widthTileSize,
+                y: 0 * heightTileSize,
+                color: 1
+            }]
+
+        };
+
+
+        $scope.states = [
+            ['startPic', 'middlePic', 'endPic'],
+            ['middlePic', 'startPic', 'endPic'],
+            ['middlePic', 'endPic', 'startPic'],
+            ['startPic', 'endPic', 'middlePic'],
+            ['endPic', 'startPic', 'middlePic'],
+            ['endPic', 'middlePic', 'startPic']
+        ];
+
+        $scope.init = function () {
+
+            var i = Math.floor(Math.random() * 6);
+            console.log("the index is:" + i);
+            if (i < 0 || i > 6) {
+                i = 5;
+            }
+            $scope.activeState = $scope.states[i];
+            $scope.index = 0;
+            $(".pic").hide();
+            $("#" + $scope.activeState[$scope.index]).show();
+            if ($scope.activeState[$scope.index] == "middlePic") {
+                tiles = all_tiles.middlePic;
+                robot = all_robots.middlePic;
+
+            }
+            else if ($scope.activeState[$scope.index] == "endPic") {
+                tiles = all_tiles.endPic;
+                robot = all_robots.endPic;
+            } else {
+                tiles = all_tiles.startPic;
+                robot = all_robots.startPic;
+            }
+            states = [{
+                robot: jQuery.extend(true, [], robot),
+                tiles: jQuery.extend(true, [], tiles),
+                activeRobot: activeRobot,
+                score: $scope.score
+            }];
+            $scope.countdown();
+        };
 
         $scope.userMoves = [];
 
@@ -37,7 +143,6 @@ app.controller("trainCtrl", ["$scope", "$rootScope", '$timeout',
 //
 
 
-
         var states = [{
             robot: jQuery.extend(true, [], robot),
             tiles: jQuery.extend(true, [], tiles),
@@ -55,8 +160,10 @@ app.controller("trainCtrl", ["$scope", "$rootScope", '$timeout',
                 ctx.fill();
             }
 
-        };
-        $scope.moveEvent = function (e) {
+        }
+
+
+        window.addEventListener("keydown", function (e) {
             //console.log(e.keyCode)
             keysDown[e.keyCode] = true;
             $scope.update(widthTileSize, heightTileSize);
@@ -68,9 +175,7 @@ app.controller("trainCtrl", ["$scope", "$rootScope", '$timeout',
 
                 e.preventDefault();
             }
-        };
-
-        window.addEventListener("keydown", $scope.moveEvent, false);
+        }, false);
 
 
 // Reset the game when the player catches a monster
@@ -115,7 +220,7 @@ app.controller("trainCtrl", ["$scope", "$rootScope", '$timeout',
 
             }
             for (var i = 0; i < tiles.length; i++) {
-                if (parseInt(tiles[i][1]) == parseInt(x) && parseInt(tiles[i][2]) == parseInt(y) && tiles[i][0]!="white" ) {
+                if (parseInt(tiles[i][1]) == parseInt(x) && parseInt(tiles[i][2]) == parseInt(y) && tiles[i][0] != "white") {
                     return true;
                 }
 
@@ -134,7 +239,7 @@ app.controller("trainCtrl", ["$scope", "$rootScope", '$timeout',
                 }
                 robot[activeRobot].y -= height_mod;
                 $scope.score += 1;
-                $scope.userMoves.push("Up")
+                //$scope.userMoves.push("Up")
             }
             if (40 in keysDown) { // Player holding down
                 if (robot[activeRobot].y + height_mod >= canvas.offsetHeight) {
@@ -145,7 +250,7 @@ app.controller("trainCtrl", ["$scope", "$rootScope", '$timeout',
                 }
                 robot[activeRobot].y += height_mod;
                 $scope.score += 1;
-                $scope.userMoves.push("Down")
+                //$scope.userMoves.push("Down")
 
 
             }
@@ -158,7 +263,7 @@ app.controller("trainCtrl", ["$scope", "$rootScope", '$timeout',
                 }
                 robot[activeRobot].x -= width_mod;
                 $scope.score += 1;
-                $scope.userMoves.push("Left")
+                //$scope.userMoves.push("Left")
 
             }
             if (39 in keysDown) { // Player holding right
@@ -170,7 +275,7 @@ app.controller("trainCtrl", ["$scope", "$rootScope", '$timeout',
                 }
                 robot[activeRobot].x += width_mod;
                 $scope.score += 1;
-                $scope.userMoves.push("Right")
+                //$scope.userMoves.push("Right")
 
 
             }
@@ -182,7 +287,7 @@ app.controller("trainCtrl", ["$scope", "$rootScope", '$timeout',
                     if (parseInt(robot[activeRobot].x) == parseInt(tiles[i][1]) && (parseInt(robot[activeRobot].y + height_mod) == parseInt(tiles[i][2]) || parseInt(robot[activeRobot].y + height_mod) == parseInt(tiles[i][2]) + 1 || parseInt(robot[activeRobot].y + height_mod) == parseInt(tiles[i][2]) - 1)) {
                         tiles[i][0] = colors[robot[activeRobot].color];
                         $scope.score += 2;
-                        $scope.userMoves.push("Color Down");
+                        //$scope.userMoves.push("Color Down");
                         if (checkGoal()) {
                             //TODO:win
                             alert("you win");
@@ -199,7 +304,7 @@ app.controller("trainCtrl", ["$scope", "$rootScope", '$timeout',
                     if (parseInt(robot[activeRobot].x) == parseInt(tiles[i][1]) && (parseInt(robot[activeRobot].y) - parseInt(height_mod) == parseInt(tiles[i][2]) || parseInt(robot[activeRobot].y) - parseInt(height_mod) == parseInt(tiles[i][2]) + 1 || parseInt(robot[activeRobot].y) - parseInt(height_mod) == parseInt(tiles[i][2]) - 1)) {
                         tiles[i][0] = colors[robot[activeRobot].color];
                         $scope.score += 2;
-                        $scope.userMoves.push("Color Up");
+                        //$scope.userMoves.push("Color Up");
                         if (checkGoal()) {
                             //TODO:win
                             alert("you win");
@@ -328,9 +433,6 @@ app.controller("trainCtrl", ["$scope", "$rootScope", '$timeout',
         $scope.initGoal();
 
 
-        $scope.counter = 300;
-
-
         $scope.countdown = function () {
             stopped = $timeout(function () {
                 //console.log($scope.counter);
@@ -344,8 +446,8 @@ app.controller("trainCtrl", ["$scope", "$rootScope", '$timeout',
                 $scope.countdown();
             }, 1000);
         };
-        $scope.countdown();
 
+        $scope.init();
 
         var start = new Date();
         $scope.changeRoute = function (url, forceReload) {
@@ -357,21 +459,84 @@ app.controller("trainCtrl", ["$scope", "$rootScope", '$timeout',
                 $scope.$apply();
             }
         };
+        $scope.insertDuration = function (start, end, index) {
+            //alert($scope.activeState[index])
+            if ($scope.activeState[index] == "startPic") {
+                $rootScope.user['startDuration'] = (end - start) / 1000;
+            }
+            if ($scope.activeState[index] == "middlePic") {
+                $rootScope.user['middleDuration'] = (end - start) / 1000;
+            }
+            if ($scope.activeState[index] == "endPic") {
+                $rootScope.user['endDuration'] = (end - start) / 1000;
+            }
 
-        //$scope.userInfo=$rootScope.userInfo;
+        };
+
         $scope.continue = function () {
-            $timeout.cancel(stopped);
-            window.removeEventListener("keydown", $scope.moveEvent, false);
+            if ($scope.index >= $scope.activeState.length - 1) {
+                // move to end of expeirment
+                $timeout.cancel(stopped);
+                $scope.insertDuration(start, new Date, $scope.index);
 
-            $rootScope.user["DurationTraining"] = (new Date - start)/1000;
-            $rootScope.user["UserMoves"] = $scope.userMoves;
-            $rootScope.user["Score"] = $scope.score;
-            $rootScope.user["Win"] = $scope.win;
-            $rootScope.user["GridSize"] = GridSize;
+                $rootScope.user['startUp'] = $scope.start.up;
+                $rootScope.user['startDown'] = $scope.start.down;
+                $rootScope.user['startLeft'] = $scope.start.left;
+                $rootScope.user['startRight'] = $scope.start.right;
+                $rootScope.user['startScore'] = $scope.start.right + $scope.start.left + $scope.start.up + $scope.start.down;
 
-            $rootScope.UserStates = states;
-            $scope.changeRoute('#/calibration');
+                $rootScope.user['middleUp'] = $scope.middle.up;
+                $rootScope.user['middleDown'] = $scope.middle.down;
+                $rootScope.user['middleLeft'] = $scope.middle.left;
+                $rootScope.user['middleRight'] = $scope.middle.right;
+                $rootScope.user['middleScore'] = $scope.middle.right + $scope.middle.left + $scope.middle.up + $scope.middle.down;
+
+
+                $rootScope.user['endUp'] = $scope.end.up;
+                $rootScope.user['endDown'] = $scope.end.down;
+                $rootScope.user['endLeft'] = $scope.end.left;
+                $rootScope.user['endRight'] = $scope.end.right;
+                $rootScope.user['endScore'] = $scope.end.right + $scope.end.left + $scope.end.up + $scope.end.down;
+
+                $scope.changeRoute('#/end');
+
+            }
+            else {
+                $timeout.cancel(stopped);
+
+                $scope.index += 1;
+                $(".pic").hide();
+
+                $("#" + $scope.activeState[$scope.index]).show();
+                $scope.reset();
+                if ($scope.activeState[$scope.index] == "middlePic") {
+                    tiles = all_tiles.middlePic;
+                    robot = all_robots.middlePic;
+
+                }
+                else if ($scope.activeState[$scope.index] == "endPic") {
+                    tiles = all_tiles.endPic;
+                    robot = all_robots.endPic;
+                } else {
+                    tiles = all_tiles.startPic;
+                    robot = all_robots.startPic;
+                }
+                states = [{
+                    robot: jQuery.extend(true, [], robot),
+                    tiles: jQuery.extend(true, [], tiles),
+                    activeRobot: activeRobot,
+                    score: $scope.score
+                }];
+                $scope.render();
+
+                $scope.insertDuration(start, new Date, $scope.index - 1);
+                start = new Date();
+                document.body.scrollTop = document.documentElement.scrollTop = 0;
+                $scope.counter = 300;
+
+                $scope.countdown();
+
+
+            }
         }
-
     }]);
-

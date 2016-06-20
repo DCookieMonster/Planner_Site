@@ -1,8 +1,27 @@
 /**
- * Created by dor on 23/04/2016.
+ * Created by dor on 20/06/2016.
  */
-app.controller("trainCtrl", ["$scope", "$rootScope", '$timeout',
+app.controller("calCtrl", ["$scope", "$rootScope", '$timeout',
     function ($scope, $rootScope, $timeout) {
+
+        var g = document.getElementById('goalCal');
+        var gctx = g.getContext('2d');
+        var goalHeightTileSize = g.offsetHeight / 4;
+        var goalWidthTileSize = g.offsetWidth / 3;
+        var goal_tiles = [['white', 0 * goalWidthTileSize, 0 * goalHeightTileSize], ['white', 1 * goalWidthTileSize, 0 * goalHeightTileSize], ['white', 2 * goalWidthTileSize, 0 * goalHeightTileSize], ['blue', 2 * goalWidthTileSize, 2 * goalHeightTileSize], ['red', 2 * goalWidthTileSize, 1 * goalHeightTileSize], ['red', 2 * goalWidthTileSize, 3 * goalHeightTileSize], ['blue', 0 * goalWidthTileSize, 2 * goalHeightTileSize], ['blue', 0 * goalWidthTileSize, 2 * goalHeightTileSize], ['red', 0 * goalWidthTileSize, 1 * goalHeightTileSize], ['blue', 1 * goalWidthTileSize, 1 * goalHeightTileSize], ['red', 0 * goalWidthTileSize, 3 * goalHeightTileSize], ['blue', 1 * goalWidthTileSize, 3 * goalHeightTileSize], ['red', 1 * goalWidthTileSize, 2 * goalHeightTileSize]];
+        var canvas = document.getElementById('boardCal');
+        var ctx = canvas.getContext('2d');
+        var heightTileSize = canvas.offsetHeight / 4;
+        var widthTileSize = canvas.offsetWidth / 3;
+        var tiles = [['white', 0 * widthTileSize, 0 * heightTileSize], ['white', 1 * widthTileSize, 0 * heightTileSize], ['white', 2 * widthTileSize, 0 * heightTileSize], ['white', 0 * widthTileSize, 1 * heightTileSize], ['white', 1 * widthTileSize, 1 * heightTileSize], ['white', 2 * widthTileSize, 1 * heightTileSize], ['white', 0 * widthTileSize, 2 * heightTileSize], ['white', 1 * widthTileSize, 2 * heightTileSize], ['white', 2 * widthTileSize, 2 * heightTileSize], ['white', 0 * widthTileSize, 3 * heightTileSize], ['white', 1 * widthTileSize, 3 * heightTileSize], ['white', 2 * widthTileSize, 3 * heightTileSize]];
+        var robot = [{x: 1 * widthTileSize, y: 2 * heightTileSize, color: 0}, {
+            x: 0 * widthTileSize,
+            y: 0 * heightTileSize,
+            color: 1
+        }];
+        var colors = ["blue", "red"];
+        var result_tiles = [['white', 0 * widthTileSize, 0 * heightTileSize], ['white', 1 * widthTileSize, 0 * heightTileSize], ['white', 2 * widthTileSize, 0 * heightTileSize], ['blue', 2 * widthTileSize, 2 * heightTileSize], ['red', 2 * widthTileSize, 1 * heightTileSize], ['red', 2 * widthTileSize, 3 * heightTileSize], ['blue', 0 * widthTileSize, 2 * heightTileSize], ['blue', 0 * widthTileSize, 2 * heightTileSize], ['red', 0 * widthTileSize, 1 * heightTileSize], ['blue', 1 * widthTileSize, 1 * heightTileSize], ['red', 0 * widthTileSize, 3 * heightTileSize], ['blue', 1 * widthTileSize, 3 * heightTileSize], ['red', 1 * widthTileSize, 2 * heightTileSize]];
+        var GridSize = "3X4";
 
         $scope.userMoves = [];
 
@@ -37,7 +56,6 @@ app.controller("trainCtrl", ["$scope", "$rootScope", '$timeout',
 //
 
 
-
         var states = [{
             robot: jQuery.extend(true, [], robot),
             tiles: jQuery.extend(true, [], tiles),
@@ -56,7 +74,7 @@ app.controller("trainCtrl", ["$scope", "$rootScope", '$timeout',
             }
 
         };
-        $scope.moveEvent = function (e) {
+        $scope.moveEventcal = function (e) {
             //console.log(e.keyCode)
             keysDown[e.keyCode] = true;
             $scope.update(widthTileSize, heightTileSize);
@@ -70,7 +88,7 @@ app.controller("trainCtrl", ["$scope", "$rootScope", '$timeout',
             }
         };
 
-        window.addEventListener("keydown", $scope.moveEvent, false);
+        window.addEventListener("keydown", $scope.moveEventcal, false);
 
 
 // Reset the game when the player catches a monster
@@ -115,7 +133,7 @@ app.controller("trainCtrl", ["$scope", "$rootScope", '$timeout',
 
             }
             for (var i = 0; i < tiles.length; i++) {
-                if (parseInt(tiles[i][1]) == parseInt(x) && parseInt(tiles[i][2]) == parseInt(y) && tiles[i][0]!="white" ) {
+                if (parseInt(tiles[i][1]) == parseInt(x) && parseInt(tiles[i][2]) == parseInt(y) && tiles[i][0] != "white") {
                     return true;
                 }
 
@@ -328,7 +346,37 @@ app.controller("trainCtrl", ["$scope", "$rootScope", '$timeout',
         $scope.initGoal();
 
 
+        //$scope.userInfo=$rootScope.userInfo;
+        $scope.calibration = {
+            up: 0,
+            down: 0,
+            right: 0,
+            left: 0
+        };
+
         $scope.counter = 300;
+
+
+        $scope.init = function () {
+            tiles = [['white', 0 * widthTileSize, 0 * heightTileSize], ['white', 1 * widthTileSize, 0 * heightTileSize],
+                ['white', 2 * widthTileSize, 0 * heightTileSize], ['white', 0 * widthTileSize, 1 * heightTileSize],
+                ['white', 1 * widthTileSize, 1 * heightTileSize], ['white', 2 * widthTileSize, 1 * heightTileSize],
+                ['blue', 0 * widthTileSize, 2 * heightTileSize], ['red', 1 * widthTileSize, 2 * heightTileSize],
+                ['blue', 2 * widthTileSize, 2 * heightTileSize], ['red', 0 * widthTileSize, 3 * heightTileSize],
+                ['blue', 1 * widthTileSize, 3 * heightTileSize], ['red', 2 * widthTileSize, 3 * heightTileSize]];
+            robot = [{x: 0 * widthTileSize, y: 1 * heightTileSize, color: 0}, {
+                x: 1 * widthTileSize,
+                y: 1 * heightTileSize,
+                color: 1
+            }];
+            states = [{
+                robot: jQuery.extend(true, [], robot),
+                tiles: jQuery.extend(true, [], tiles),
+                activeRobot: activeRobot,
+                score: $scope.score
+            }];
+            $scope.countdown();
+        };
 
 
         $scope.countdown = function () {
@@ -344,8 +392,8 @@ app.controller("trainCtrl", ["$scope", "$rootScope", '$timeout',
                 $scope.countdown();
             }, 1000);
         };
-        $scope.countdown();
 
+        $scope.init();
 
         var start = new Date();
         $scope.changeRoute = function (url, forceReload) {
@@ -358,20 +406,20 @@ app.controller("trainCtrl", ["$scope", "$rootScope", '$timeout',
             }
         };
 
-        //$scope.userInfo=$rootScope.userInfo;
         $scope.continue = function () {
+            // move to end of expeirment
             $timeout.cancel(stopped);
-            window.removeEventListener("keydown", $scope.moveEvent, false);
+            window.removeEventListener("keydown", $scope.moveEventcal, false);
 
-            $rootScope.user["DurationTraining"] = (new Date - start)/1000;
-            $rootScope.user["UserMoves"] = $scope.userMoves;
-            $rootScope.user["Score"] = $scope.score;
-            $rootScope.user["Win"] = $scope.win;
-            $rootScope.user["GridSize"] = GridSize;
+            $rootScope.user['calibrationUp'] = $scope.calibration.up;
+            $rootScope.user['calibrationDown'] = $scope.calibration.down;
+            $rootScope.user['calibrationLeft'] = $scope.calibration.left;
+            $rootScope.user['calibrationRight'] = $scope.calibration.right;
+            $rootScope.user['calibrationScore'] = $scope.calibration.right + $scope.calibration.left + $scope.calibration.up + $scope.calibration.down;
+            $rootScope.user['calibrationDuration'] = (new Date() - start) / 1000;
 
-            $rootScope.UserStates = states;
-            $scope.changeRoute('#/calibration');
+            $scope.changeRoute('#/calibrationResult');
+
+
         }
-
     }]);
-
