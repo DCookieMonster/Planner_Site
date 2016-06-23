@@ -30,7 +30,9 @@ app.controller("cal2Ctrl", ["$scope", "$rootScope", '$timeout',
             up: 0,
             down: 0,
             right: 0,
-            left: 0
+            left: 0,
+            colorUp: 0,
+            colorDown: 0
         };
 
         $scope.counter = 300;
@@ -73,7 +75,9 @@ app.controller("cal2Ctrl", ["$scope", "$rootScope", '$timeout',
             robot: jQuery.extend(true, [], robot),
             tiles: jQuery.extend(true, [], tiles),
             activeRobot: activeRobot,
-            score: $scope.score
+            score: $scope.score,
+            movement: jQuery.extend({}, $scope.calibration)
+
         }];
 
         $scope.draw_tiles = function () {
@@ -117,6 +121,7 @@ app.controller("cal2Ctrl", ["$scope", "$rootScope", '$timeout',
             tiles = jQuery.extend(true, [], state.tiles);
             $scope.score = state.score;
             $scope.win = false;
+            $scope.calibration = jQuery.extend({}, movement);
 
             $scope.render();
 
@@ -126,7 +131,9 @@ app.controller("cal2Ctrl", ["$scope", "$rootScope", '$timeout',
             robot: jQuery.extend(true, [], robot),
             tiles: jQuery.extend(true, [], tiles),
             activeRobot: activeRobot,
-            score: $scope.score
+            score: $scope.score,
+            movement: jQuery.extend({}, $scope.calibration)
+
         }];
 
         $scope.reset = function () {
@@ -140,6 +147,8 @@ app.controller("cal2Ctrl", ["$scope", "$rootScope", '$timeout',
             activeRobot = state.activeRobot;
             tiles = jQuery.extend(true, [], state.tiles);
             $scope.score = state.score;
+            $scope.calibration = jQuery.extend({}, movement);
+
             $scope.render();
 
         };
@@ -173,6 +182,8 @@ app.controller("cal2Ctrl", ["$scope", "$rootScope", '$timeout',
                 robot[activeRobot].y -= height_mod;
                 $scope.score += 1;
                 $scope.userMoves.push("Up")
+                $scope.calibration.up += 1;
+
             }
             if (40 in keysDown) { // Player holding down
                 if (robot[activeRobot].y + height_mod >= canvas.offsetHeight) {
@@ -184,6 +195,8 @@ app.controller("cal2Ctrl", ["$scope", "$rootScope", '$timeout',
                 robot[activeRobot].y += height_mod;
                 $scope.score += 1;
                 $scope.userMoves.push("Down")
+                $scope.calibration.down += 1;
+
 
 
             }
@@ -197,6 +210,8 @@ app.controller("cal2Ctrl", ["$scope", "$rootScope", '$timeout',
                 robot[activeRobot].x -= width_mod;
                 $scope.score += 1;
                 $scope.userMoves.push("Left")
+                $scope.calibration.left += 1;
+
 
             }
             if (39 in keysDown) { // Player holding right
@@ -209,6 +224,8 @@ app.controller("cal2Ctrl", ["$scope", "$rootScope", '$timeout',
                 robot[activeRobot].x += width_mod;
                 $scope.score += 1;
                 $scope.userMoves.push("Right")
+                $scope.calibration.right += 1;
+
 
 
             }
@@ -219,8 +236,10 @@ app.controller("cal2Ctrl", ["$scope", "$rootScope", '$timeout',
                 for (var i = 0; i < tiles.length; i++) {
                     if (parseInt(robot[activeRobot].x) == parseInt(tiles[i][1]) && (parseInt(robot[activeRobot].y + height_mod) == parseInt(tiles[i][2]) || parseInt(robot[activeRobot].y + height_mod) == parseInt(tiles[i][2]) + 1 || parseInt(robot[activeRobot].y + height_mod) == parseInt(tiles[i][2]) - 1)) {
                         tiles[i][0] = colors[robot[activeRobot].color];
-                        $scope.score += 2;
+                        $scope.score += 1;
                         $scope.userMoves.push("Color Down");
+                        $scope.calibration.colorDown += 1;
+
                         if (checkGoal()) {
                             //TODO:win
                             alert("you win");
@@ -236,8 +255,9 @@ app.controller("cal2Ctrl", ["$scope", "$rootScope", '$timeout',
                 for (var i = 0; i < tiles.length; i++) {
                     if (parseInt(robot[activeRobot].x) == parseInt(tiles[i][1]) && (parseInt(robot[activeRobot].y) - parseInt(height_mod) == parseInt(tiles[i][2]) || parseInt(robot[activeRobot].y) - parseInt(height_mod) == parseInt(tiles[i][2]) + 1 || parseInt(robot[activeRobot].y) - parseInt(height_mod) == parseInt(tiles[i][2]) - 1)) {
                         tiles[i][0] = colors[robot[activeRobot].color];
-                        $scope.score += 2;
+                        $scope.score += 1;
                         $scope.userMoves.push("Color Up");
+                        $scope.calibration.colorUp += 1;
                         if (checkGoal()) {
                             //TODO:win
                             alert("you win");
@@ -393,7 +413,9 @@ app.controller("cal2Ctrl", ["$scope", "$rootScope", '$timeout',
                 robot: jQuery.extend(true, [], robot),
                 tiles: jQuery.extend(true, [], tiles),
                 activeRobot: activeRobot,
-                score: $scope.score
+                score: $scope.score,
+                movement: jQuery.extend({}, $scope.calibration)
+
             }];
             $scope.countdown();
         };
@@ -436,6 +458,12 @@ app.controller("cal2Ctrl", ["$scope", "$rootScope", '$timeout',
             $rootScope.user['calibration2Left'] = $scope.calibration.left;
             $rootScope.user['calibration2Right'] = $scope.calibration.right;
             $rootScope.user['calibration2Score'] = $scope.calibration.right + $scope.calibration.left + $scope.calibration.up + $scope.calibration.down;
+            $rootScope.user['calibration2Score'] = $scope.calibration.right + $scope.calibration.left + $scope.calibration.up + $scope.calibration.down;
+            $rootScope.user['calibration2Cost'] = $scope.cost;
+            $rootScope.user['calibration2CalcCost'] = $scope.score;
+            $rootScope.user['calibration2Win'] = $scope.win;
+            $rootScope.user['calibration2Moves'] = $scope.userMoves;
+
             $rootScope.user['calibration2Duration'] = (new Date() - start) / 1000;
 
             $scope.changeRoute('#/calibrationResult2');

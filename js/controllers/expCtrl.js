@@ -11,20 +11,32 @@ app.controller("expCtrl", ["$scope", "$rootScope", '$timeout',
             up: 0,
             down: 0,
             right: 0,
-            left: 0
+            left: 0,
+            colorUp: 0,
+            colorDown: 0
         };
         $scope.middle = {
             up: 0,
             down: 0,
             right: 0,
-            left: 0
+            left: 0,
+            colorUp: 0,
+            colorDown: 0
         };
         $scope.end = {
             up: 0,
             down: 0,
             right: 0,
-            left: 0
+            left: 0,
+            colorUp: 0,
+            colorDown: 0
         };
+
+        $scope.movement = {
+            "start": $scope.start,
+            "middle": $scope.middle,
+            "end": $scope.end
+        }
 
         $scope.counter = 300;
 
@@ -105,7 +117,9 @@ app.controller("expCtrl", ["$scope", "$rootScope", '$timeout',
                 robot: jQuery.extend(true, [], robot),
                 tiles: jQuery.extend(true, [], tiles),
                 activeRobot: activeRobot,
-                score: $scope.score
+                score: $scope.score,
+                movement: jQuery.extend({}, $scope.movement)
+
             }];
             $scope.countdown();
         };
@@ -147,7 +161,8 @@ app.controller("expCtrl", ["$scope", "$rootScope", '$timeout',
             robot: jQuery.extend(true, [], robot),
             tiles: jQuery.extend(true, [], tiles),
             activeRobot: activeRobot,
-            score: $scope.score
+            score: $scope.score,
+            movement: jQuery.extend({}, $scope.movement)
         }];
 
         $scope.draw_tiles = function () {
@@ -191,7 +206,14 @@ app.controller("expCtrl", ["$scope", "$rootScope", '$timeout',
             tiles = jQuery.extend(true, [], state.tiles);
             $scope.score = state.score;
             $scope.win = false;
-
+            $scope.start = jQuery.extend({}, state.movement.start)
+            $scope.end = jQuery.extend({}, state.movement.end)
+            $scope.middle = jQuery.extend({}, state.movement.middle)
+            $scope.movement = {
+                "start": $scope.start,
+                "middle": $scope.middle,
+                "end": $scope.end
+            }
             $scope.render();
 
         };
@@ -207,6 +229,14 @@ app.controller("expCtrl", ["$scope", "$rootScope", '$timeout',
             activeRobot = state.activeRobot;
             tiles = jQuery.extend(true, [], state.tiles);
             $scope.score = state.score;
+            $scope.start = jQuery.extend({}, state.movement.start)
+            $scope.end = jQuery.extend({}, state.movement.end)
+            $scope.middle = jQuery.extend({}, state.movement.middle)
+            $scope.movement = {
+                "start": $scope.start,
+                "middle": $scope.middle,
+                "end": $scope.end
+            }
             $scope.render();
 
         };
@@ -239,7 +269,17 @@ app.controller("expCtrl", ["$scope", "$rootScope", '$timeout',
                 }
                 robot[activeRobot].y -= height_mod;
                 $scope.score += 1;
-                //$scope.userMoves.push("Up")
+                $scope.userMoves.push("Up")
+                if ($scope.activeState[$scope.index] == "middlePic") {
+                    $scope.movement.middle.up += 1;
+
+                }
+                else if ($scope.activeState[$scope.index] == "endPic") {
+                    $scope.movement.end.up += 1;
+                } else {
+                    $scope.movement.start.up += 1;
+
+                }
             }
             if (40 in keysDown) { // Player holding down
                 if (robot[activeRobot].y + height_mod >= canvas.offsetHeight) {
@@ -250,7 +290,17 @@ app.controller("expCtrl", ["$scope", "$rootScope", '$timeout',
                 }
                 robot[activeRobot].y += height_mod;
                 $scope.score += 1;
-                //$scope.userMoves.push("Down")
+                $scope.userMoves.push("Down")
+                if ($scope.activeState[$scope.index] == "middlePic") {
+                    $scope.movement.middle.down += 1;
+
+                }
+                else if ($scope.activeState[$scope.index] == "endPic") {
+                    $scope.movement.end.down += 1;
+                } else {
+                    $scope.movement.start.down += 1;
+
+                }
 
 
             }
@@ -263,7 +313,17 @@ app.controller("expCtrl", ["$scope", "$rootScope", '$timeout',
                 }
                 robot[activeRobot].x -= width_mod;
                 $scope.score += 1;
-                //$scope.userMoves.push("Left")
+                $scope.userMoves.push("Left")
+                if ($scope.activeState[$scope.index] == "middlePic") {
+                    $scope.movement.middle.left += 1;
+
+                }
+                else if ($scope.activeState[$scope.index] == "endPic") {
+                    $scope.movement.end.left += 1;
+                } else {
+                    $scope.movement.start.left += 1;
+
+                }
 
             }
             if (39 in keysDown) { // Player holding right
@@ -275,7 +335,17 @@ app.controller("expCtrl", ["$scope", "$rootScope", '$timeout',
                 }
                 robot[activeRobot].x += width_mod;
                 $scope.score += 1;
-                //$scope.userMoves.push("Right")
+                $scope.userMoves.push("Right")
+                if ($scope.activeState[$scope.index] == "middlePic") {
+                    $scope.movement.middle.right += 1;
+
+                }
+                else if ($scope.activeState[$scope.index] == "endPic") {
+                    $scope.movement.end.right += 1;
+                } else {
+                    $scope.movement.start.right += 1;
+
+                }
 
 
             }
@@ -286,8 +356,18 @@ app.controller("expCtrl", ["$scope", "$rootScope", '$timeout',
                 for (var i = 0; i < tiles.length; i++) {
                     if (parseInt(robot[activeRobot].x) == parseInt(tiles[i][1]) && (parseInt(robot[activeRobot].y + height_mod) == parseInt(tiles[i][2]) || parseInt(robot[activeRobot].y + height_mod) == parseInt(tiles[i][2]) + 1 || parseInt(robot[activeRobot].y + height_mod) == parseInt(tiles[i][2]) - 1)) {
                         tiles[i][0] = colors[robot[activeRobot].color];
-                        $scope.score += 2;
-                        //$scope.userMoves.push("Color Down");
+                        $scope.score += 1;
+                        $scope.userMoves.push("Color Down");
+                        if ($scope.activeState[$scope.index] == "middlePic") {
+                            $scope.movement.middle.colorDown += 1;
+
+                        }
+                        else if ($scope.activeState[$scope.index] == "endPic") {
+                            $scope.movement.end.colorDown += 1;
+                        } else {
+                            $scope.movement.start.colorDown += 1;
+
+                        }
                         if (checkGoal()) {
                             //TODO:win
                             alert("you win");
@@ -303,8 +383,18 @@ app.controller("expCtrl", ["$scope", "$rootScope", '$timeout',
                 for (var i = 0; i < tiles.length; i++) {
                     if (parseInt(robot[activeRobot].x) == parseInt(tiles[i][1]) && (parseInt(robot[activeRobot].y) - parseInt(height_mod) == parseInt(tiles[i][2]) || parseInt(robot[activeRobot].y) - parseInt(height_mod) == parseInt(tiles[i][2]) + 1 || parseInt(robot[activeRobot].y) - parseInt(height_mod) == parseInt(tiles[i][2]) - 1)) {
                         tiles[i][0] = colors[robot[activeRobot].color];
-                        $scope.score += 2;
-                        //$scope.userMoves.push("Color Up");
+                        $scope.score += 1;
+                        $scope.userMoves.push("Color Up");
+                        if ($scope.activeState[$scope.index] == "middlePic") {
+                            $scope.movement.middle.colorUp += 1;
+
+                        }
+                        else if ($scope.activeState[$scope.index] == "endPic") {
+                            $scope.movement.end.colorUp += 1;
+                        } else {
+                            $scope.movement.start.colorUp += 1;
+
+                        }
                         if (checkGoal()) {
                             //TODO:win
                             alert("you win");
@@ -341,7 +431,9 @@ app.controller("expCtrl", ["$scope", "$rootScope", '$timeout',
                 robot: jQuery.extend(true, [], robot),
                 tiles: jQuery.extend(true, [], tiles),
                 activeRobot: activeRobot,
-                score: $scope.score
+                score: $scope.score,
+                movement: jQuery.extend({}, $scope.movement)
+
             });
             // Are they touching?
             //if (
@@ -484,12 +576,14 @@ app.controller("expCtrl", ["$scope", "$rootScope", '$timeout',
                 $rootScope.user['startLeft'] = $scope.start.left;
                 $rootScope.user['startRight'] = $scope.start.right;
                 $rootScope.user['startScore'] = $scope.start.right + $scope.start.left + $scope.start.up + $scope.start.down;
+                $rootScope.user['startCost'] = $scope.startCost;
 
                 $rootScope.user['middleUp'] = $scope.middle.up;
                 $rootScope.user['middleDown'] = $scope.middle.down;
                 $rootScope.user['middleLeft'] = $scope.middle.left;
                 $rootScope.user['middleRight'] = $scope.middle.right;
                 $rootScope.user['middleScore'] = $scope.middle.right + $scope.middle.left + $scope.middle.up + $scope.middle.down;
+                $rootScope.user['middleCost'] = $scope.middleCost;
 
 
                 $rootScope.user['endUp'] = $scope.end.up;
@@ -497,6 +591,7 @@ app.controller("expCtrl", ["$scope", "$rootScope", '$timeout',
                 $rootScope.user['endLeft'] = $scope.end.left;
                 $rootScope.user['endRight'] = $scope.end.right;
                 $rootScope.user['endScore'] = $scope.end.right + $scope.end.left + $scope.end.up + $scope.end.down;
+                $rootScope.user['endCost'] = $scope.endCost;
 
                 $scope.changeRoute('#/end');
 
@@ -512,20 +607,33 @@ app.controller("expCtrl", ["$scope", "$rootScope", '$timeout',
                 if ($scope.activeState[$scope.index] == "middlePic") {
                     tiles = all_tiles.middlePic;
                     robot = all_robots.middlePic;
+                    $rootScope.user['userMovesMiddle'] = $scope.userMoves;
+                    $rootScope.user['userCalcCostMiddle'] = $scope.score;
+                    $scope.userMoves = [];
+
 
                 }
                 else if ($scope.activeState[$scope.index] == "endPic") {
                     tiles = all_tiles.endPic;
                     robot = all_robots.endPic;
+                    $rootScope.user['userMovesEnd'] = $scope.userMoves;
+                    $rootScope.user['userCalcCostEnd'] = $scope.score;
+                    $scope.userMoves = [];
                 } else {
                     tiles = all_tiles.startPic;
                     robot = all_robots.startPic;
+                    $rootScope.user['userMovesStart'] = $scope.userMoves;
+                    $rootScope.user['userCalcCostStart'] = $scope.score;
+                    $scope.userMoves = [];
                 }
+                $scope.score = 0;
                 states = [{
                     robot: jQuery.extend(true, [], robot),
                     tiles: jQuery.extend(true, [], tiles),
                     activeRobot: activeRobot,
-                    score: $scope.score
+                    score: $scope.score,
+                    movement: jQuery.extend({}, $scope.movement)
+
                 }];
                 $scope.render();
 

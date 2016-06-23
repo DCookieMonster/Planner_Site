@@ -162,7 +162,7 @@ app.controller("calRasCtrl", ["$scope", "$rootScope", '$timeout',
             left: $rootScope.user['calibrationLeft']
         };
 
-        $scope.estimated_cost=  $rootScope.user['calibrationScore'];
+        $scope.estimated_cost = $rootScope.user['calibrationCost'];
 
         var start=new Date();
         $scope.changeRoute = function (url, forceReload) {
@@ -200,7 +200,7 @@ app.controller("cal2RasCtrl", ["$scope", "$rootScope", '$timeout',
             left: $rootScope.user['calibration2Left']
         };
 
-        $scope.estimated_cost=  $rootScope.user['calibration2Score'];
+        $scope.estimated_cost = $rootScope.user['calibration2Cost'];
 
         var start=new Date();
         $scope.changeRoute = function (url, forceReload) {
