@@ -15,7 +15,11 @@ app.controller("cal2Ctrl", ["$scope", "$rootScope", '$timeout',
         var ctx = canvas.getContext('2d');
         var heightTileSize = canvas.offsetHeight / 4;
         var widthTileSize = canvas.offsetWidth / 3;
-        var tiles = [['white', 0 * widthTileSize, 0 * heightTileSize], ['white', 1 * widthTileSize, 0 * heightTileSize], ['white', 2 * widthTileSize, 0 * heightTileSize], ['white', 0 * widthTileSize, 1 * heightTileSize], ['white', 1 * widthTileSize, 1 * heightTileSize], ['white', 2 * widthTileSize, 1 * heightTileSize], ['white', 0 * widthTileSize, 2 * heightTileSize], ['white', 1 * widthTileSize, 2 * heightTileSize], ['white', 2 * widthTileSize, 2 * heightTileSize], ['white', 0 * widthTileSize, 3 * heightTileSize], ['white', 1 * widthTileSize, 3 * heightTileSize], ['white', 2 * widthTileSize, 3 * heightTileSize]];
+        var tiles = [['white', 0 * widthTileSize, 0 * heightTileSize],
+            ['white', 1 * widthTileSize, 0 * heightTileSize], ['white', 2 * widthTileSize, 0 * heightTileSize],
+            ['white', 0 * widthTileSize, 1 * heightTileSize], ['white', 1 * widthTileSize, 1 * heightTileSize], ['white', 2 * widthTileSize, 1 * heightTileSize],
+            ['white', 0 * widthTileSize, 2 * heightTileSize], ['white', 1 * widthTileSize, 2 * heightTileSize], ['white', 2 * widthTileSize, 2 * heightTileSize],
+            ['white', 0 * widthTileSize, 3 * heightTileSize], ['white', 1 * widthTileSize, 3 * heightTileSize], ['white', 2 * widthTileSize, 3 * heightTileSize]];
         var robot = [{x: 1 * widthTileSize, y: 2 * heightTileSize, color: 0}, {
             x: 0 * widthTileSize,
             y: 0 * heightTileSize,
@@ -403,10 +407,10 @@ app.controller("cal2Ctrl", ["$scope", "$rootScope", '$timeout',
                 ['white', 1 * widthTileSize, 1 * heightTileSize], ['red', 2 * widthTileSize, 1 * heightTileSize],
                 ['white', 0 * widthTileSize, 2 * heightTileSize], ['white', 1 * widthTileSize, 2 * heightTileSize],
                 ['blue', 2 * widthTileSize, 2 * heightTileSize], ['red', 0 * widthTileSize, 3 * heightTileSize],
-                ['white', 1 * widthTileSize, 3 * heightTileSize], ['red', 2 * widthTileSize, 3 * heightTileSize]];
+                ['blue', 1 * widthTileSize, 3 * heightTileSize], ['red', 2 * widthTileSize, 3 * heightTileSize]];
             robot = [{x: 1 * widthTileSize, y: 1 * heightTileSize, color: 0}, {
-                x: 1 * widthTileSize,
-                y: 3 * heightTileSize,
+                x: 0 * widthTileSize,
+                y: 0 * heightTileSize,
                 color: 1
             }];
             states = [{
