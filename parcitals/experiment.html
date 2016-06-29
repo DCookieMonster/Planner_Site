@@ -43,6 +43,92 @@
                     <br><br>
                     <button class="btn btn-default btn-primary" ng-click="undo()">Undo</button>
                     <button class="btn  btn-default btn-primary" ng-click="reset()">Reset</button>
+                    <br>
+                    <br>
+                    <h5>Action Counters:</h5>
+
+                    <div class="startPic pic">
+                        <!--<h3>State {{index+1}}</h3>-->
+
+                        <div class="form-group text-center col-lg-6">
+                            <label>"Up" Steps: <span>{{start.up}}</span></label>
+                        </div>
+                        <div class="form-group text-center col-lg-6">
+                            <label>"Down" Steps: <span>{{start.down}}</span></label>
+                        </div>
+                        <div class="form-group text-center col-lg-6">
+                            <label>"Left" Steps: <span>{{start.left}}</span></label>
+
+                        </div>
+                        <div class="form-group text-center col-lg-6">
+                            <label>"Right" Steps: <span>{{start.right}}</span></label>
+
+                        </div>
+
+                        <div class="form-group text-center col-lg-6">
+                            <label>Color "Up": <span>{{start.colorUp}}</span></label>
+
+                        </div>
+                        <div class="form-group text-center col-lg-6">
+                            <label>Color "Down": <span>{{start.colorDown}}</span></label>
+
+                        </div>
+                    </div>
+
+                    <div class="middlePic pic">
+                        <!--<h3>State {{index+1}}</h3>-->
+
+                        <div class="form-group text-center col-lg-6">
+                            <label>"Up" Steps: <span>{{middle.up}}</span></label>
+                        </div>
+                        <div class="form-group text-center col-lg-6">
+                            <label>"Down" Steps: <span>{{middle.down}}</span></label>
+                        </div>
+                        <div class="form-group text-center col-lg-6">
+                            <label>"Left" Steps: <span>{{middle.left}}</span></label>
+
+                        </div>
+                        <div class="form-group text-center col-lg-6">
+                            <label>"Right" Steps: <span>{{middle.right}}</span></label>
+
+                        </div>
+
+                        <div class="form-group text-center col-lg-6">
+                            <label>Color "Up": <span>{{middle.colorUp}}</span></label>
+
+                        </div>
+                        <div class="form-group text-center col-lg-6">
+                            <label>Color "Down": <span>{{middle.colorDown}}</span></label>
+
+                        </div>
+                    </div>
+                    <div class="endPic pic">
+                        <div class="form-group text-center col-lg-6">
+                            <label>"Up" Steps: <span>{{end.up}}</span></label>
+                        </div>
+                        <div class="form-group text-center col-lg-6">
+                            <label>"Down" Steps: <span>{{end.down}}</span></label>
+                        </div>
+                        <div class="form-group text-center col-lg-6">
+                            <label>"Left" Steps: <span>{{end.left}}</span></label>
+
+                        </div>
+                        <div class="form-group text-center col-lg-6">
+                            <label>"Right" Steps: <span>{{end.right}}</span></label>
+
+                        </div>
+
+                        <div class="form-group text-center col-lg-6">
+                            <label>Color "Up": <span>{{end.colorUp}}</span></label>
+
+                        </div>
+                        <div class="form-group text-center col-lg-6">
+                            <label>Color "Down": <span>{{end.colorDown}}</span></label>
+
+                        </div>
+
+
+                    </div>
                 </div>
             </div>
             <div class="col-lg-6">
@@ -61,45 +147,18 @@
             </div>
         </div>
 
-        <div class="pic" id="startPic">
+        <div class="pic startPic" id="startPic">
             <!--<div class="row" align="center">-->
             <!--<img class="img-responsive" src="img/stages/12.png" alt="">-->
             <!--</div>-->
-            <div class="col-lg-2"></div>
 
-            <div class="col-lg-8">
-                <!--<h3>State {{index+1}}</h3>-->
 
-                <div class="form-group text-center col-lg-6">
-                    <label>Number of Up Steps: <span>{{start.up}}</span></label>
-                </div>
-                <div class="form-group text-center col-lg-6">
-                    <label>Number of Down Steps: <span>{{start.down}}</span></label>
-                </div>
-                <div class="form-group text-center col-lg-6">
-                    <label>Number of Left Steps: <span>{{start.left}}</span></label>
-
-                </div>
-                <div class="form-group text-center col-lg-6">
-                    <label>Number of Right Steps: <span>{{start.right}}</span></label>
-
-                </div>
-
-                <div class="form-group text-center col-lg-6">
-                    <label>Number of Color Up: <span>{{start.colorUp}}</span></label>
-
-                </div>
-                <div class="form-group text-center col-lg-6">
-                    <label>Number of Color Down: <span>{{start.colorDown}}</span></label>
-
-                </div>
-            </div>
             <div class="row">
                 <div class="col-lg-4"></div>
                 <div class="col-lg-4">
                     <form>
                         <div class="form-group col-lg-12">
-                            <label>The Estimate Cost:</label>
+                            <label>My estimate for the lowest cost solution is:</label>
                             <input type="number" min="0" placeholder="cost" name="cost"
                                    ng-model="startCost" class="form-control">
                         </div>
@@ -109,46 +168,20 @@
         </div>
 
 
-        <div class="pic" id="middlePic">
+        <div class="pic middlePic" id="middlePic">
 
             <!--<div class="row" align="center">-->
             <!--<img class="img-responsive " src="img/stages/2.png" alt="">-->
             <!--</div>-->
-            <div class="col-lg-2"></div>
 
-            <div class="col-lg-8">
-                <!--<h3>State {{index+1}}</h3>-->
 
-                <div class="form-group text-center col-lg-6">
-                    <label>Number of Up Steps: <span>{{middle.up}}</span></label>
-                </div>
-                <div class="form-group text-center col-lg-6">
-                    <label>Number of Down Steps: <span>{{middle.down}}</span></label>
-                </div>
-                <div class="form-group text-center col-lg-6">
-                    <label>Number of Left Steps: <span>{{middle.left}}</span></label>
 
-                </div>
-                <div class="form-group text-center col-lg-6">
-                    <label>Number of Right Steps: <span>{{middle.right}}</span></label>
-
-                </div>
-
-                <div class="form-group text-center col-lg-6">
-                    <label>Number of Color Up: <span>{{middle.colorUp}}</span></label>
-
-                </div>
-                <div class="form-group text-center col-lg-6">
-                    <label>Number of Color Down: <span>{{middle.colorDown}}</span></label>
-
-                </div>
-            </div>
             <div class="row">
                 <div class="col-lg-4"></div>
                 <div class="col-lg-4">
                     <form>
                         <div class="form-group col-lg-12">
-                            <label>The Estimate Cost:</label>
+                            <label>My estimate for the lowest cost solution is:</label>
                             <input type="number" min="0" placeholder="cost" name="cost"
                                    ng-model="middleCost" class="form-control">
                         </div>
@@ -158,45 +191,18 @@
         </div>
 
 
-        <div class="pic" id="endPic">
+        <div class="pic endPic" id="endPic">
 
             <!--<div class="row" align="center">-->
             <!--<img class="img-responsive " src="img/stages/4.png" alt="">-->
             <!--</div>-->
-            <div class="col-lg-2"></div>
-            <div class="col-lg-8">
-                <div class="form-group text-center col-lg-6">
-                    <label>Number of Up Steps: <span>{{end.up}}</span></label>
-                    </div>
-                <div class="form-group text-center col-lg-6">
-                    <label>Number of Down Steps: <span>{{end.down}}</span></label>
-                    </div>
-                <div class="form-group text-center col-lg-6">
-                    <label>Number of Left Steps: <span>{{end.left}}</span></label>
 
-                </div>
-                <div class="form-group text-center col-lg-6">
-                    <label>Number of Right Steps: <span>{{end.right}}</span></label>
-
-                </div>
-
-                <div class="form-group text-center col-lg-6">
-                    <label>Number of Color Up: <span>{{end.colorUp}}</span></label>
-
-                </div>
-                <div class="form-group text-center col-lg-6">
-                    <label>Number of Color Down: <span>{{end.colorDown}}</span></label>
-
-                </div>
-
-
-            </div>
             <div class="row">
                 <div class="col-lg-4"></div>
                 <div class="col-lg-4">
                     <form>
                         <div class="form-group col-lg-12">
-                            <label>The Estimate Cost:</label>
+                            <label>My estimate for the lowest cost solution is:</label>
                             <input type="number" min="0" placeholder="cost" name="cost"
                                    ng-model="endCost" class="form-control">
                         </div>

@@ -100,7 +100,7 @@ app.controller("expCtrl", ["$scope", "$rootScope", '$timeout',
             $scope.activeState = $scope.states[i];
             $scope.index = 0;
             $(".pic").hide();
-            $("#" + $scope.activeState[$scope.index]).show();
+            $("." + $scope.activeState[$scope.index]).show();
             if ($scope.activeState[$scope.index] == "middlePic") {
                 tiles = all_tiles.middlePic;
                 robot = all_robots.middlePic;
@@ -602,7 +602,7 @@ app.controller("expCtrl", ["$scope", "$rootScope", '$timeout',
                 $scope.index += 1;
                 $(".pic").hide();
 
-                $("#" + $scope.activeState[$scope.index]).show();
+                $("." + $scope.activeState[$scope.index]).show();
                 $scope.reset();
                 if ($scope.activeState[$scope.index] == "middlePic") {
                     tiles = all_tiles.middlePic;

@@ -126,6 +126,7 @@ app.controller("quizCtrl", ["$scope", "$rootScope",
                 $scope.$apply();
             }
         };
+        $('html, body').scrollTop(0);//For scrolling to top
         $scope.q1 = "";
         $scope.q2 = "";
         $scope.q3 = "";

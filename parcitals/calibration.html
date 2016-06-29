@@ -46,6 +46,33 @@
                     <br><br>
                     <button class="btn btn-default btn-primary" ng-click="undo()">Undo</button>
                     <button class="btn  btn-default btn-primary" ng-click="reset()">Reset</button>
+
+                    <br>
+                    <br>
+                    <h5>Action Counters:</h5>
+                    <div class="form-group text-center col-lg-6">
+                        <label>"Up" Steps: <span>{{calibration.up}}</span></label>
+                    </div>
+                    <div class="form-group text-center col-lg-6">
+                        <label>"Down" Steps: <span>{{calibration.down}}</span></label>
+                    </div>
+                    <div class="form-group text-center col-lg-6">
+                        <label>"Left" Steps: <span>{{calibration.left}}</span></label>
+
+                    </div>
+                    <div class="form-group text-center col-lg-6">
+                        <label>"Right" Steps: <span>{{calibration.right}}</span></label>
+
+                    </div>
+
+                    <div class="form-group text-center col-lg-6">
+                        <label>Color "Up": <span>{{calibration.colorUp}}</span></label>
+
+                    </div>
+                    <div class="form-group text-center col-lg-6">
+                        <label>Color "Down": <span>{{calibration.colorDown}}</span></label>
+
+                    </div>
                 </div>
             </div>
             <div class="col-lg-6">
@@ -71,29 +98,29 @@
             <div class="col-lg-2"></div>
             <div class="col-lg-8">
 
-                <div class="form-group text-center col-lg-6">
-                    <label>Number of Up Steps: <span>{{calibration.up}}</span></label>
-                    </div>
-                <div class="form-group text-center col-lg-6">
-                    <label>Number of Down Steps: <span>{{calibration.down}}</span></label>
-                    </div>
-                <div class="form-group text-center col-lg-6">
-                    <label>Number of Left Steps: <span>{{calibration.left}}</span></label>
+                <!--<div class="form-group text-center col-lg-6">-->
+                <!--<label>Num of "Up" Steps: <span>{{calibration.up}}</span></label>-->
+                <!--</div>-->
+                <!--<div class="form-group text-center col-lg-6">-->
+                <!--<label>Num of "Down" Steps: <span>{{calibration.down}}</span></label>-->
+                <!--</div>-->
+                <!--<div class="form-group text-center col-lg-6">-->
+                <!--<label>Num of "Left" Steps: <span>{{calibration.left}}</span></label>-->
 
-                </div>
-                <div class="form-group text-center col-lg-6">
-                    <label>Number of Right Steps: <span>{{calibration.right}}</span></label>
+                <!--</div>-->
+                <!--<div class="form-group text-center col-lg-6">-->
+                <!--<label>Num of "Right" Steps: <span>{{calibration.right}}</span></label>-->
 
-                </div>
+                <!--</div>-->
 
-                <div class="form-group text-center col-lg-6">
-                    <label>Number of Color Up: <span>{{calibration.colorUp}}</span></label>
+                <!--<div class="form-group text-center col-lg-6">-->
+                <!--<label>Num of Color "Up": <span>{{calibration.colorUp}}</span></label>-->
 
-                </div>
-                <div class="form-group text-center col-lg-6">
-                    <label>Number of Color Down: <span>{{calibration.colorDown}}</span></label>
+                <!--</div>-->
+                <!--<div class="form-group text-center col-lg-6">-->
+                <!--<label>Num of Color "Down": <span>{{calibration.colorDown}}</span></label>-->
 
-                </div>
+                <!--</div>-->
 
             </div>
         </div>
@@ -102,8 +129,8 @@
             <div class="col-lg-4"></div>
             <div class="col-lg-4">
                 <form>
-                    <div class="form-group col-lg-12">
-                        <label>The Estimate Cost:</label>
+                    <div class="form-group text-center col-lg-12">
+                        <label>My estimate for the lowest cost solution is:</label>
                         <input type="number" min="0" placeholder="cost" name="cost" id="cost"
                                ng-model="cost" class="form-control">
                     </div>
