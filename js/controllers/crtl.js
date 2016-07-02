@@ -137,7 +137,7 @@ app.controller("quizCtrl", ["$scope", "$rootScope",
             if ($scope.q1 == "ans1" && $scope.q2 == "ans1" && $scope.q3 == "ans4" && $scope.q4 == "ans1"&& $scope.q5 == "ans2") {
                 $rootScope.user["DurationQuiz"] = (new Date - start)/1000;
                 $rootScope.user["numberOftimesInQuiz"] = $rootScope.numberOftimeInQuiz;
-                $scope.changeRoute('#/train');
+                $scope.changeRoute('#/calibration');
             }
             else {
                 alert("You Failed The Quiz, Read The Instruction And Try Again");
