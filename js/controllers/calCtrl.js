@@ -199,6 +199,9 @@ app.controller("calCtrl", ["$scope", "$rootScope", '$timeout',
 
                 for (var i = 0; i < tiles.length; i++) {
                     if (parseInt(robot[activeRobot].x) == parseInt(tiles[i][1]) && (parseInt(robot[activeRobot].y + height_mod) == parseInt(tiles[i][2]) || parseInt(robot[activeRobot].y + height_mod) == parseInt(tiles[i][2]) + 1 || parseInt(robot[activeRobot].y + height_mod) == parseInt(tiles[i][2]) - 1)) {
+                        if ($scope.checkIfFree(robot[activeRobot].x, robot[activeRobot].y + height_mod)) {
+                            return;
+                        }
                         tiles[i][0] = colors[robot[activeRobot].color];
                         $scope.score += 1;
                         $scope.userMoves.push("Color Down");
@@ -217,7 +220,11 @@ app.controller("calCtrl", ["$scope", "$rootScope", '$timeout',
                 console.log("w")
                 for (var i = 0; i < tiles.length; i++) {
                     if (parseInt(robot[activeRobot].x) == parseInt(tiles[i][1]) && (parseInt(robot[activeRobot].y) - parseInt(height_mod) == parseInt(tiles[i][2]) || parseInt(robot[activeRobot].y) - parseInt(height_mod) == parseInt(tiles[i][2]) + 1 || parseInt(robot[activeRobot].y) - parseInt(height_mod) == parseInt(tiles[i][2]) - 1)) {
+                        if ($scope.checkIfFree(robot[activeRobot].x, robot[activeRobot].y - height_mod)) {
+                            return;
+                        }
                         tiles[i][0] = colors[robot[activeRobot].color];
+
                         $scope.score += 1;
                         $scope.userMoves.push("Color Up");
                         $scope.calibration.colorUp += 1;

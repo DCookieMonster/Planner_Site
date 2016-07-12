@@ -125,7 +125,7 @@ app.controller("cal2Ctrl", ["$scope", "$rootScope", '$timeout',
             tiles = jQuery.extend(true, [], state.tiles);
             $scope.score = state.score;
             $scope.win = false;
-            $scope.calibration = jQuery.extend({}, movement);
+            $scope.calibration = jQuery.extend({}, state.movement);
 
             $scope.render();
 
@@ -151,7 +151,7 @@ app.controller("cal2Ctrl", ["$scope", "$rootScope", '$timeout',
             activeRobot = state.activeRobot;
             tiles = jQuery.extend(true, [], state.tiles);
             $scope.score = state.score;
-            $scope.calibration = jQuery.extend({}, movement);
+            $scope.calibration = jQuery.extend({}, state.movement);
 
             $scope.render();
 
@@ -239,6 +239,9 @@ app.controller("cal2Ctrl", ["$scope", "$rootScope", '$timeout',
 
                 for (var i = 0; i < tiles.length; i++) {
                     if (parseInt(robot[activeRobot].x) == parseInt(tiles[i][1]) && (parseInt(robot[activeRobot].y + height_mod) == parseInt(tiles[i][2]) || parseInt(robot[activeRobot].y + height_mod) == parseInt(tiles[i][2]) + 1 || parseInt(robot[activeRobot].y + height_mod) == parseInt(tiles[i][2]) - 1)) {
+                        if ($scope.checkIfFree(robot[activeRobot].x, robot[activeRobot].y + height_mod)) {
+                            return;
+                        }
                         tiles[i][0] = colors[robot[activeRobot].color];
                         $scope.score += 1;
                         $scope.userMoves.push("Color Down");
@@ -258,6 +261,9 @@ app.controller("cal2Ctrl", ["$scope", "$rootScope", '$timeout',
                 console.log("w")
                 for (var i = 0; i < tiles.length; i++) {
                     if (parseInt(robot[activeRobot].x) == parseInt(tiles[i][1]) && (parseInt(robot[activeRobot].y) - parseInt(height_mod) == parseInt(tiles[i][2]) || parseInt(robot[activeRobot].y) - parseInt(height_mod) == parseInt(tiles[i][2]) + 1 || parseInt(robot[activeRobot].y) - parseInt(height_mod) == parseInt(tiles[i][2]) - 1)) {
+                        if ($scope.checkIfFree(robot[activeRobot].x, robot[activeRobot].y - height_mod)) {
+                            return;
+                        }
                         tiles[i][0] = colors[robot[activeRobot].color];
                         $scope.score += 1;
                         $scope.userMoves.push("Color Up");
@@ -298,7 +304,8 @@ app.controller("cal2Ctrl", ["$scope", "$rootScope", '$timeout',
                 robot: jQuery.extend(true, [], robot),
                 tiles: jQuery.extend(true, [], tiles),
                 activeRobot: activeRobot,
-                score: $scope.score
+                score: $scope.score,
+                movement: jQuery.extend({}, $scope.calibration)
             });
             // Are they touching?
             //if (
