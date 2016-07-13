@@ -6,7 +6,7 @@
             </h1>
         </div>
         <div class="row">
-            <h5>Estimate the steps</h5>
+            <!--<h5>Estimate the steps</h5>-->
         </div>
         <div class="row">
             <div class="col-lg-12">
@@ -15,15 +15,16 @@
                     <!--Remember that the goal is to color the floor tile like the design at minimal cost.-->
                     <!--Also bear in mind that going down cost more than the other steps.</p>-->
 <p>
-    Please estimate the minimal number of actions to arrange each board according to the goal pattern (see below).
+    Please estimate the minimal cost (
+    <small>number of actions</small>
+    ) to arrange each board according to the goal pattern (see below).
 </p>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <p style="font-weight: bold">This is not the real task; this is a practice session.
-                    Try to estimate the steps your robots need to to to get to the goal and you will
-                    get a feedback how close are you to the real cost.
+                <p style="font-weight: bold">This is a practice session.
+                    We will give you feedback how close are you to the real cost.
                 </p>
 
             </div>
@@ -130,7 +131,7 @@
             <div class="col-lg-4">
                 <form>
                     <div class="form-group text-center col-lg-12">
-                        <label>My estimate for the lowest cost solution is:</label>
+                        <label>My estimate for the minimum cost solution is:</label>
                         <input type="number" min="0" placeholder="cost" name="cost" id="cost"
                                ng-model="cost" class="form-control">
                     </div>

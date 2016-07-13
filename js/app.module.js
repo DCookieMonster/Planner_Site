@@ -42,6 +42,9 @@ app.config(['$routeProvider', '$locationProvider',
             }).when('/calibrationResult2', {
                 templateUrl: 'parcitals/calibrationResults2.html',
                 controller: 'cal2RasCtrl'
+        }).when('/payments', {
+                templateUrl: 'parcitals/payments.html',
+                controller: 'payCtrl'
             })
             .otherwise({
             redirectTo: '/'

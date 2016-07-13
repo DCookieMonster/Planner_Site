@@ -218,8 +218,32 @@ app.controller("cal2RasCtrl", ["$scope", "$rootScope", '$timeout',
             $rootScope.user['calibrationResult2Duration']=(new Date-start)/1000;
 
 
-            $scope.changeRoute('#/exp');
+            $scope.changeRoute('#/payments');
 
+
+
+        }
+    }]);
+
+
+app.controller("payCtrl", ["$scope", "$rootScope", '$timeout',
+    function ($scope, $rootScope, $timeout) {
+
+
+        $scope.changeRoute = function (url, forceReload) {
+            $scope = $scope || angular.element(document).scope();
+            if (forceReload || $scope.$$phase) { // that's right TWO dollar signs: $$phase
+                window.location = url;
+            } else {
+                $location.path(url);
+                $scope.$apply();
+            }
+        };
+
+        $scope.continue = function () {
+
+
+            $scope.changeRoute('#/exp');
 
 
         }
